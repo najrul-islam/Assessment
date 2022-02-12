@@ -24,7 +24,7 @@ namespace Assessment.Infrastructure.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=DESKTOP-LBC2NVV;Database=Assessment;Trusted_Connection=True;MultipleActiveResultSets=true;");
+                //optionsBuilder.UseSqlServer(@"Server=DESKTOP-LBC2NVV;Database=Assessment;Trusted_Connection=True;MultipleActiveResultSets=true;");
             }
         }
 
