@@ -1,11 +1,11 @@
 ﻿/*
 Post-Deployment Script Template							
 --------------------------------------------------------------------------------------
- This file contains SQL statements that will be appended to the build script.		
+ This file contains SQL statements that will be appENDed to the build script.		
  Use SQLCMD syntax to include a file in the post-deployment script.			
  Example:      :r .\myfile.sql								
  Use SQLCMD syntax to reference a variable in the post-deployment script.		
- Example:      :setvar TableName MyTable							
+ Example:      :SETvar TableName MyTable							
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
@@ -152,3 +152,38 @@ INSERT [dbo].[Object] ([Name]) VALUES (N'Object17')
 INSERT [dbo].[Object] ([Name]) VALUES (N'Object18')
 INSERT [dbo].[Object] ([Name]) VALUES (N'Object19')
 INSERT [dbo].[Object] ([Name]) VALUES (N'Object20')
+
+
+
+	DECLARE @Start_Date DATETIME ='2022-01-01 0:0:0.0';
+	DECLARE @END_Date DATETIME ='2022-12-31 23:59:59.999';
+	DECLARE @id INT = 1;
+	DECLARE @min_integer TINYINT = 1
+	,@max_integer TINYINT =  20
+	,@time_stamp TINYINT =  1
+	,@time_stamp_range TINYINT =  59
+	,@value_range TINYINT =  30
+	,@count INT = 1;
+		while (@id >=1 and @id <= 100)
+			BEGIN
+				while (@Start_Date < @END_Date)
+					BEGIN
+						while (@time_stamp >=1 and @time_stamp <= 10)
+							BEGIN
+								INSERT INTO [dbo].[Reading]([BuildingId], ObjectId,[DataFieldId], [Value],[Timestamp])
+								VALUES (@id, 
+									FLOOR(RAND()*(@max_integer - @min_integer + 1) + @min_integer),
+									FLOOR(RAND()*(@max_integer - @min_integer + 1) + @min_integer), 
+									FLOOR(RAND()*(@value_range - 5 + 1) + 5),
+									DATEADD(SECOND, FLOOR(RAND()*(@time_stamp_range - @min_integer + 1) + @min_integer), @Start_Date)
+									)
+								SELECT @time_stamp = @time_stamp + 1;
+							END
+						SELECT @time_stamp = 1;
+						SET @Start_Date = DATEADD(MI,1, @Start_Date);
+					END
+			SET @Start_Date = '2022-01-01 0:0:0.0';
+			SELECT @id = @id + 1;
+			END
+	SET @id =1;
+	SET @count = 1;
