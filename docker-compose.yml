@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  assessment.api:
+    image: ${DOCKER_REGISTRY-}assessmentapi
+    build:
+      context: .
+      dockerfile: src\Assessment.API\Dockerfile
